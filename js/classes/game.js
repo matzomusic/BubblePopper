@@ -45,14 +45,38 @@ class Game {
 	}
 
 	drawDisplayUI() {
-		let muteDisplay = muted ? "unmute" : "mute";
-		let displayString = `High Score: ${highScore}     Score: ${this.score}     Level: ${this.level}     p: pause   m: ${muteDisplay}`;
+		let displayString = `High Score: ${highScore}     Score: ${this.score}     Level: ${this.level}   `;
 		context.fillStyle = "rgb(255,255,255,0.4)";
 		context.fillRect(0, 0, displayString.length * 11 - 110, 30);
 		context.fillStyle = "black";
 		context.font = "20px arial";
 
 		context.fillText(displayString, 13, 21);
+	}
+
+	drawButtonsUI() {
+		context.font = "20px arial";
+
+		let muteDisplay = muted ? "red" : "black";
+		context.fillStyle = "rgb(255,255,255,0.1)";
+		context.fillRect(
+			muteButtonMap[0],
+			muteButtonMap[1],
+			muteButtonMap[2],
+			muteButtonMap[3]
+		);
+		context.fillStyle = muteDisplay;
+		context.fillText("mute", 6, 53);
+		let pausedDisplay = paused ? "red" : "black";
+		context.fillStyle = "rgb(255,255,255,0.1)";
+		context.fillRect(
+			pauseButtonMap[0],
+			pauseButtonMap[1],
+			pauseButtonMap[2],
+			pauseButtonMap[3]
+		);
+		context.fillStyle = pausedDisplay;
+		context.fillText("pause", 6, 83);
 	}
 	draw() {
 		if (!paused && !dead) {
@@ -71,6 +95,7 @@ class Game {
 			this.levels();
 
 			this.drawDisplayUI();
+			this.drawButtonsUI();
 		} else if (paused) {
 			context.fillStyle = "rgb(0,0,0,0.03)";
 
@@ -82,6 +107,9 @@ class Game {
 			context.strokeStyle = "red";
 			context.font = "100px Arial";
 			context.strokeText("PAUSED", width / 2 - 200, height / 2);
+			context.closePath();
+
+			this.drawButtonsUI();
 		}
 	}
 

@@ -1,4 +1,19 @@
-//*Canvas
+//* Get device type
+const deviceType = () => {
+	const ua = navigator.userAgent;
+	if (/(tablet|ipad|playbook|silk)|(android(?!.*mobi))/i.test(ua)) {
+		return "tablet";
+	} else if (
+		/Mobile|Android|iP(hone|od)|IEMobile|BlackBerry|Kindle|Silk-Accelerated|(hpw|web)OS|Opera M(obi|ini)/.test(
+			ua
+		)
+	) {
+		return "mobile";
+	}
+	return "desktop";
+};
+
+//* Canvas
 
 const canvas = document.getElementById("canvas");
 canvas.width = window.innerWidth;
@@ -8,7 +23,7 @@ const rect = canvas.getBoundingClientRect();
 const width = rect.width;
 const height = rect.height;
 
-//*Audio
+//* Audio
 
 // const AudioContext = window.AudioContext || window.webkitAudioContext;
 // const audioContext = new AudioContext();
@@ -22,7 +37,7 @@ const deathSound = document.getElementById("death");
 
 let muted = true;
 
-//*Public variables
+//* Public variables
 
 const mult = 1;
 
@@ -44,6 +59,9 @@ const LEVELS = {
 	LEVEL10: 1000000000 / mult,
 };
 
+const muteButtonMap = [0, 30, 70, 30];
+const pauseButtonMap = [0, 60, 70, 30];
+
 let bubbles = [];
 let poppers = [];
 let mines = [];
@@ -53,7 +71,7 @@ let highScore = 0;
 let paused = false;
 let dead = false;
 
-//*Public functions
+//* Public functions
 
 function getRandomPos() {
 	let x = Math.floor(Math.random() * width);
@@ -251,7 +269,7 @@ function unMute() {
 
 let game = new Game();
 
-//*User input
+//* User input
 
 window.addEventListener("mousedown", () => {
 	if (dead) {
@@ -260,7 +278,6 @@ window.addEventListener("mousedown", () => {
 });
 
 canvas.addEventListener("mousemove", (e) => {
-	let timeout;
 	if (!paused && !dead) {
 		mousePop(e.offsetX, e.offsetY);
 		if (game.score >= LEVELS.LEVEL8) {
@@ -272,6 +289,60 @@ canvas.addEventListener("mousemove", (e) => {
 				let missile = new Missile(e.offsetX, e.offsetY, angle);
 				missiles.push(missile);
 			}
+		}
+	}
+});
+
+canvas.addEventListener("drag", (e) => {
+	if (userAgent == "mobile" || userAgent == "tablet") {
+		if (!paused && !dead) {
+			mousePop(e.offsetX, e.offsetY);
+			if (game.score >= LEVELS.LEVEL8) {
+				let rand = Math.random() * 100;
+				let angle = Math.random() * 360;
+
+				if (rand < game.level / 4) {
+					playZapp();
+					let missile = new Missile(e.offsetX, e.offsetY, angle);
+					missiles.push(missile);
+				}
+			}
+		}
+	}
+});
+
+canvas.addEventListener("mousedown", (e) => {
+	let x = e.offsetX;
+	let y = e.offsetY;
+
+	if (
+		x > muteButtonMap[0] &&
+		x < muteButtonMap[2] &&
+		y > muteButtonMap[1] &&
+		y < muteButtonMap[3] + muteButtonMap[2]
+	) {
+		if (!muted) {
+			mute();
+			muted = true;
+		} else {
+			unMute();
+			muted = false;
+		}
+	}
+	if (
+		x > pauseButtonMap[0] &&
+		x < pauseButtonMap[2] &&
+		y > pauseButtonMap[1] &&
+		y < pauseButtonMap[3] + pauseButtonMap[2]
+	) {
+		if (!paused) {
+			paused = true;
+
+			pauseBubbles();
+		} else {
+			paused = false;
+
+			resumeBubbles();
 		}
 	}
 });
