@@ -162,28 +162,40 @@ class Timer {
 }
 
 function playGoodPop() {
-	goodPop.currentTime = 0;
-	goodPop.play();
+	if (!muted) {
+		goodPop.currentTime = 0;
+		goodPop.play();
+	}
 }
 function playBadPop() {
-	badPop.currentTime = 0;
-	badPop.play();
+	if (!muted) {
+		badPop.currentTime = 0;
+		badPop.play();
+	}
 }
 function playLevelUp() {
-	levelUp.currentTime = 0;
-	levelUp.play();
+	if (!muted) {
+		levelUp.currentTime = 0;
+		levelUp.play();
+	}
 }
 function playZapp() {
-	zapp.currentTime = 0;
-	zapp.play();
+	if (!muted) {
+		zapp.currentTime = 0;
+		zapp.play();
+	}
 }
 function playExplode() {
-	explodeSound.currentTime = 0;
-	explodeSound.play();
+	if (!muted) {
+		explodeSound.currentTime = 0;
+		explodeSound.play();
+	}
 }
 function playDeath() {
-	deathSound.currentTime = 0;
-	deathSound.play();
+	if (!muted) {
+		deathSound.currentTime = 0;
+		deathSound.play();
+	}
 }
 
 function mousePop(xPos, yPos) {
