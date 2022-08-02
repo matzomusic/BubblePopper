@@ -293,23 +293,27 @@ canvas.addEventListener("mousemove", (e) => {
 	}
 });
 
-canvas.addEventListener("touchmove", (e) => {
-	if (userAgent == "mobile" || userAgent == "tablet") {
-		if (!paused && !dead) {
-			mousePop(e.offsetX, e.offsetY);
-			if (game.score >= LEVELS.LEVEL8) {
-				let rand = Math.random() * 100;
-				let angle = Math.random() * 360;
+canvas.addEventListener(
+	"touchmove",
+	(e) => {
+		if (userAgent == "mobile" || userAgent == "tablet") {
+			if (!paused && !dead) {
+				mousePop(e.offsetX, e.offsetY);
+				if (game.score >= LEVELS.LEVEL8) {
+					let rand = Math.random() * 100;
+					let angle = Math.random() * 360;
 
-				if (rand < game.level / 4) {
-					playZapp();
-					let missile = new Missile(e.offsetX, e.offsetY, angle);
-					missiles.push(missile);
+					if (rand < game.level / 4) {
+						playZapp();
+						let missile = new Missile(e.offsetX, e.offsetY, angle);
+						missiles.push(missile);
+					}
 				}
 			}
 		}
-	}
-});
+	},
+	false
+);
 
 canvas.addEventListener("mousedown", (e) => {
 	let x = e.offsetX;
