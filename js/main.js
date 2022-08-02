@@ -297,14 +297,14 @@ document.addEventListener("touchmove", (e) => {
 });
 
 canvas.addEventListener("mousedown", (e) => {
-	let x = e.offsetX;
-	let y = e.offsetY;
+	const x = e.offsetX;
+	const y = e.offsetY;
 
 	if (
-		x > muteButtonMap[0] &&
-		x < muteButtonMap[2] &&
-		y > muteButtonMap[1] &&
-		y < muteButtonMap[3] + muteButtonMap[2]
+		x >= muteButtonMap[0] &&
+		x <= muteButtonMap[2] &&
+		y >= muteButtonMap[1] &&
+		y <= muteButtonMap[3] + muteButtonMap[2]
 	) {
 		if (!muted) {
 			mute();
@@ -315,10 +315,10 @@ canvas.addEventListener("mousedown", (e) => {
 		}
 	}
 	if (
-		x > pauseButtonMap[0] &&
-		x < pauseButtonMap[2] &&
-		y > pauseButtonMap[1] &&
-		y < pauseButtonMap[3] + pauseButtonMap[2]
+		x >= pauseButtonMap[0] &&
+		x <= pauseButtonMap[2] &&
+		y >= pauseButtonMap[1] &&
+		y <= pauseButtonMap[3] + pauseButtonMap[2]
 	) {
 		if (!paused) {
 			paused = true;
