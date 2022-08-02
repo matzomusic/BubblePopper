@@ -49,7 +49,7 @@ class Popper {
 	}
 
 	launchMissile() {
-		if (game.level >= 6) {
+		if (game.level >= 4) {
 			let rand = Math.random() * 100;
 
 			if (rand < game.level) {
