@@ -264,7 +264,7 @@ canvas.addEventListener("mousemove", (e) => {
 	}
 });
 
-window.addEventListener("keydown", (e) => {
+document.addEventListener("keydown", (e) => {
 	switch (e.key) {
 		case "p":
 		case "P":
