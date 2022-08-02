@@ -20,7 +20,7 @@ const zapp = document.getElementById("zapp");
 const explodeSound = document.getElementById("explode");
 const deathSound = document.getElementById("death");
 
-let muted = false;
+let muted = true;
 
 //*Public variables
 
@@ -237,7 +237,6 @@ function unMute() {
 	});
 }
 
-unMute();
 let game = new Game();
 
 //*User input

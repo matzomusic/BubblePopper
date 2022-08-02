@@ -334,7 +334,7 @@ class Game {
 	}
 
 	createMine() {
-		if (this.level >= 4) {
+		if (this.level >= 3) {
 			let rand = Math.random() * 100;
 			let pos = getRandomPos();
 			if (rand < this.level) {

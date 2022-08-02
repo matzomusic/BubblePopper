@@ -8,11 +8,11 @@ class Bubble {
 		this.lethal = false;
 		this.poisonTimeout = new Timer(
 			() => (this.poison = true),
-			20000 / (ageSpeed * (game.level / 2.5))
+			20000 / (ageSpeed * (game.level / 3))
 		);
 		this.lethalTimeout = new Timer(
 			() => (this.lethal = true),
-			60000 / (ageSpeed * (game.level / 2))
+			60000 / (ageSpeed * (game.level / 3))
 		);
 
 		this.rate = 1;

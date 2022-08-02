@@ -47,7 +47,7 @@ class Mine {
 	explode() {
 		playExplode();
 		this.popped = true;
-		this.poppedValue = Math.pow(this.r, 2);
+		this.poppedValue = Math.pow(this.r, 3);
 		let neighbors = checkNeighbors(this.x, this.y, this.r)[0];
 		let mineNeighbors = checkNeighbors(this.x, this.y, this.r)[1];
 		if (neighbors != []) {
