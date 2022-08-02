@@ -55,6 +55,8 @@ class Game {
 	}
 
 	drawButtonsUI() {
+		context.beginPath();
+
 		context.font = "20px arial";
 
 		let muteDisplay = muted ? "red" : "black";
@@ -67,6 +69,9 @@ class Game {
 		);
 		context.fillStyle = muteDisplay;
 		context.fillText("mute", 6, 53);
+		context.closePath();
+
+		context.beginPath();
 		let pausedDisplay = paused ? "red" : "black";
 		context.fillStyle = "rgb(255,255,255,0.1)";
 		context.fillRect(
@@ -77,6 +82,7 @@ class Game {
 		);
 		context.fillStyle = pausedDisplay;
 		context.fillText("pause", 6, 83);
+		context.closePath();
 	}
 	draw() {
 		if (!paused && !dead) {

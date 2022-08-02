@@ -355,5 +355,6 @@ document.addEventListener("keydown", (e) => {
 				unMute();
 				muted = false;
 			}
+			break;
 	}
 });
