@@ -1,17 +1,4 @@
 //* Get device type
-const deviceType = () => {
-	const ua = navigator.userAgent;
-	if (/(tablet|ipad|playbook|silk)|(android(?!.*mobi))/i.test(ua)) {
-		return "tablet";
-	} else if (
-		/Mobile|Android|iP(hone|od)|IEMobile|BlackBerry|Kindle|Silk-Accelerated|(hpw|web)OS|Opera M(obi|ini)/.test(
-			ua
-		)
-	) {
-		return "mobile";
-	}
-	return "desktop";
-};
 
 //* Canvas
 
@@ -296,18 +283,16 @@ canvas.addEventListener("mousemove", (e) => {
 canvas.addEventListener(
 	"touchmove",
 	(e) => {
-		if (userAgent() == "mobile" || userAgent() == "tablet") {
-			if (!paused && !dead) {
-				mousePop(e.offsetX, e.offsetY);
-				if (game.score >= LEVELS.LEVEL8) {
-					let rand = Math.random() * 100;
-					let angle = Math.random() * 360;
+		if (!paused && !dead) {
+			mousePop(e.offsetX, e.offsetY);
+			if (game.score >= LEVELS.LEVEL8) {
+				let rand = Math.random() * 100;
+				let angle = Math.random() * 360;
 
-					if (rand < game.level / 4) {
-						playZapp();
-						let missile = new Missile(e.offsetX, e.offsetY, angle);
-						missiles.push(missile);
-					}
+				if (rand < game.level / 4) {
+					playZapp();
+					let missile = new Missile(e.offsetX, e.offsetY, angle);
+					missiles.push(missile);
 				}
 			}
 		}
