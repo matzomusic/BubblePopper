@@ -341,7 +341,7 @@ class Game {
 					context.fill();
 					let x = mines[i].x;
 					let y = mines[i].y;
-					let text = `${Math.floor(mines[i].poppedValue)}`;
+					let text = `+${Math.floor(mines[i].poppedValue)}`;
 					let fontSize = scaleMap(mines[i].r, 0, 1000, 5, 100);
 					context.fillStyle = "lightblue";
 					context.font = `${fontSize}px arial`;
