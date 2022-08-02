@@ -293,7 +293,7 @@ canvas.addEventListener("mousemove", (e) => {
 	}
 });
 
-canvas.addEventListener("drag", (e) => {
+canvas.addEventListener("touchmove", (e) => {
 	if (userAgent == "mobile" || userAgent == "tablet") {
 		if (!paused && !dead) {
 			mousePop(e.offsetX, e.offsetY);
