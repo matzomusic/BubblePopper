@@ -22,6 +22,7 @@ class Popper {
 
 		let withinBubble = !checkValid(this.x, this.y, false, bubbles);
 		if (withinBubble) {
+			playBadPop();
 			let bubble = checkValid(this.x, this.y, true, bubbles);
 			bubbles.splice(bubbles.indexOf(bubble), 1);
 		}
@@ -31,14 +32,10 @@ class Popper {
 
 	gravity() {
 		bubbles.forEach((bubble) => {
-			// this.collision(particle);
 			let distanceX = this.x - bubble.x;
 			let distanceY = this.y - bubble.y;
-
 			let forceX = gravity * (Math.pow(bubble.r, 2) / Math.pow(distanceX, 2));
-
 			let forceY = gravity * (Math.pow(bubble.r, 2) / Math.pow(distanceY, 2));
-
 			this.vector[0] -= (distanceX / Math.cos(forceX)) * bubble.r * gravity;
 			this.vector[1] -= (distanceY / Math.cos(forceY)) * bubble.r * gravity;
 		});
@@ -58,13 +55,12 @@ class Popper {
 			if (rand < game.level) {
 				let missile = new Missile(this.x, this.y, this.getAngle());
 				missiles.push(missile);
+				playZapp();
 			}
 		}
 	}
 	draw() {
 		context.beginPath();
-		// context.moveTo(posX - r, posY - r);
-
 		let x, y;
 		for (let i = 0; i < 3; i++) {
 			let angle = (i * Math.PI * 2) / 3 + this.getAngle() + Math.PI / 2;

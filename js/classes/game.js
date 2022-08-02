@@ -3,10 +3,19 @@ class Game {
 		this.score = 0;
 		this.level = 1;
 		this.probability = 10;
-		// this.blastRadius = 1;
 
 		this.setup();
 		this.animate = setInterval(() => this.draw(), 1000 / frameRate);
+
+		this.level2 = false;
+		this.level3 = false;
+		this.level4 = false;
+		this.level5 = false;
+		this.level6 = false;
+		this.level7 = false;
+		this.level8 = false;
+		this.level9 = false;
+		this.level10 = false;
 	}
 
 	setup() {
@@ -16,23 +25,28 @@ class Game {
 		this.score = 0;
 		this.level = 1;
 		this.probability = 10;
-		// this.blastRadius = 1;
-		paused = false;
-		// speed = 1;
-		dead = false;
-		// mouseDown = false;
-	}
+		this.level2 = false;
+		this.level3 = false;
+		this.level4 = false;
+		this.level5 = false;
+		this.level6 = false;
+		this.level7 = false;
+		this.level8 = false;
+		this.level9 = false;
+		this.level10 = false;
 
-	// pause() {
-	// 	clearInterval(this.animate);
-	// }
+		paused = false;
+
+		dead = false;
+	}
 
 	addToScore(amount) {
 		this.score += amount;
 	}
 
 	drawDisplayUI() {
-		let displayString = `High Score: ${highScore}     Score: ${this.score}     Level: ${this.level}     p: pause`;
+		let muteDisplay = muted ? "unmute" : "mute";
+		let displayString = `High Score: ${highScore}     Score: ${this.score}     Level: ${this.level}     p: pause   m: ${muteDisplay}`;
 		context.fillStyle = "rgb(255,255,255,0.4)";
 		context.fillRect(0, 0, displayString.length * 11 - 110, 30);
 		context.fillStyle = "black";
@@ -64,29 +78,30 @@ class Game {
 
 			context.fillStyle = "white";
 			context.font = "100px Arial";
-			context.fillText("PAUSED", width / 2 - 200, height / 2 + 50);
+			context.fillText("PAUSED", width / 2 - 200, height / 2);
 			context.strokeStyle = "red";
 			context.font = "100px Arial";
-			context.strokeText("PAUSED", width / 2 - 200, height / 2 + 50);
+			context.strokeText("PAUSED", width / 2 - 200, height / 2);
 		}
 	}
 
 	death() {
+		playDeath();
 		context.fillStyle = "rgb(0,0,0,0.3)";
 		const deathMessage = "BAD BUBBLE";
 		const restartMessage = "CLICK TO RESTART";
 		context.fillRect(0, 0, width, height);
 		context.fillStyle = "white";
 		context.font = "100px Arial";
-		context.fillText(deathMessage, width / 2 - 270, height / 2 + 50);
+		context.fillText(deathMessage, width / 2 - 280, height / 2);
 		context.font = "50px Arial";
-		context.fillText(restartMessage, width / 2 - 200, height / 2 + 100);
+		context.fillText(restartMessage, width / 2 - 200, height / 2 + 50);
 
 		context.strokeStyle = "red";
 		context.font = "100px Arial";
-		context.strokeText(deathMessage, width / 2 - 270, height / 2 + 50);
+		context.strokeText(deathMessage, width / 2 - 280, height / 2);
 		context.font = "50px Arial";
-		context.strokeText(restartMessage, width / 2 - 200, height / 2 + 100);
+		context.strokeText(restartMessage, width / 2 - 200, height / 2 + 50);
 
 		this.paused = true;
 		dead = true;
@@ -99,43 +114,79 @@ class Game {
 		if (this.score > LEVELS.LEVEL1 && this.score < LEVELS.LEVEL2) {
 			this.level = 2;
 			this.probability += this.level / 100;
+			if (!this.level2) {
+				this.level2 = true;
+				playLevelUp();
+			}
 		}
 		if (this.score > LEVELS.LEVEL2 && this.score < LEVELS.LEVEL3) {
 			this.level = 3;
 			this.probability += this.level / 50;
+			if (!this.level3) {
+				this.level3 = true;
+				playLevelUp();
+			}
 		}
 		if (this.score > LEVELS.LEVEL3 && this.score < LEVELS.LEVEL4) {
-			this.level = 3;
+			this.level = 4;
 			this.probability += this.level / 25;
+			if (!this.level4) {
+				this.level4 = true;
+				playLevelUp();
+			}
 		}
 		if (this.score > LEVELS.LEVEL4 && this.score < LEVELS.LEVEL5) {
-			this.level = 4;
+			this.level = 5;
 			this.probability += this.level / 5;
+			if (!this.level5) {
+				this.level5 = true;
+				playLevelUp();
+			}
 		}
 		if (this.score > LEVELS.LEVEL5 && this.score < LEVELS.LEVEL6) {
-			this.level = 5;
-
-			this.probability += this.level;
-		}
-		if (this.score > LEVELS.LEVEL6 && this.score < LEVELS.LEVEL7) {
 			this.level = 6;
 
 			this.probability += this.level;
+			if (!this.level6) {
+				this.level6 = true;
+				playLevelUp();
+			}
 		}
-		if (this.score > LEVELS.LEVEL7 && this.score < LEVELS.LEVEL8) {
+		if (this.score > LEVELS.LEVEL6 && this.score < LEVELS.LEVEL7) {
 			this.level = 7;
 
-			this.probability += this.level * 2;
+			this.probability += this.level;
+			if (!this.level7) {
+				this.level7 = true;
+				playLevelUp();
+			}
 		}
-		if (this.score > LEVELS.LEVEL8 && this.score < LEVELS.LEVEL9) {
+		if (this.score > LEVELS.LEVEL7 && this.score < LEVELS.LEVEL8) {
 			this.level = 8;
 
 			this.probability += this.level * 2;
+			if (!this.level8) {
+				this.level8 = true;
+				playLevelUp();
+			}
 		}
-		if (this.score > LEVELS.LEVEL9 && this.score < LEVELS.LEVEL10) {
+		if (this.score > LEVELS.LEVEL8 && this.score < LEVELS.LEVEL9) {
 			this.level = 9;
 
 			this.probability += this.level * 2;
+			if (!this.level9) {
+				this.level9 = true;
+				playLevelUp();
+			}
+		}
+		if (this.score > LEVELS.LEVEL9 && this.score < LEVELS.LEVEL10) {
+			this.level = 10;
+
+			this.probability += this.level * 2;
+			if (!this.level10) {
+				this.level10 = true;
+				playLevelUp();
+			}
 		}
 	}
 
@@ -191,8 +242,6 @@ class Game {
 					context.fillStyle = "rgb(255,0,0,0.1)";
 					context.fill();
 				}
-
-				// console.log(bubbles[i]);
 			}
 		}
 	}
@@ -200,8 +249,7 @@ class Game {
 	createBubble() {
 		let rand = Math.random() * 100;
 		let pos = getRandomPos();
-		// console.log(checkValid(pos[0], pos[1]));
-		// console.log(pos);
+
 		if (rand < this.probability) {
 			if (
 				checkValid(pos[0], pos[1], false, bubbles) &&
@@ -241,18 +289,12 @@ class Game {
 				}
 
 				if (mines[i].popped) {
-					// context.beginPath();
-					// context.arc(mines[i].x, mines[i].y, mines[i].r, 0, Math.PI * 2);
 					context.moveTo(mines[i].x, mines[i].y);
-
 					context.beginPath();
-					// context.moveTo(posX - r, posY - r);
-
 					let verts = Math.floor(mines[i].r) + 3;
 					for (let j = 0; j < verts; j++) {
 						let angle = (j * Math.PI * 2) / verts + Math.PI / 2;
 						let rX = mines[i].r + Math.random() * 10 - 5;
-
 						let x = Math.cos(angle) * rX + mines[i].x;
 						let y = Math.sin(angle) * rX + mines[i].y;
 						context.lineTo(x, y);
@@ -260,10 +302,7 @@ class Game {
 					mines[i].alpha -= 0.01;
 					context.closePath();
 					context.strokeStyle = "lightblue";
-					// context.lineWidth = (1 - mines[i].alpha) * 10;
-
 					context.stroke();
-
 					context.fillStyle = `rgb(155,155,155,${mines[i].alpha})`;
 					context.fill();
 					let x = mines[i].x;
@@ -272,16 +311,11 @@ class Game {
 					let fontSize = scaleMap(mines[i].r, 0, 1000, 5, 100);
 					context.fillStyle = "lightblue";
 					context.font = `${fontSize}px arial`;
-
 					context.fillText(text, x - fontSize * 1.5, y + fontSize / 2);
-
 					continue;
 				}
 				context.moveTo(mines[i].x, mines[i].y);
-
 				context.beginPath();
-				// context.moveTo(posX - r, posY - r);
-
 				let x, y;
 				let verts = Math.floor(mines[i].r) + 3;
 				for (let j = 0; j < verts; j++) {
@@ -295,8 +329,6 @@ class Game {
 				context.closePath();
 				context.strokeStyle = "green";
 				context.stroke();
-
-				// console.log(bubbles[i]);
 			}
 		}
 	}
@@ -316,6 +348,7 @@ class Game {
 			}
 		}
 	}
+
 	drawMissiles() {
 		if (missiles != []) {
 			for (let i = 0; i < missiles.length; i++) {

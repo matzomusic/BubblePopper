@@ -8,11 +8,11 @@ class Bubble {
 		this.lethal = false;
 		this.poisonTimeout = new Timer(
 			() => (this.poison = true),
-			20000 / ageSpeed
+			20000 / (ageSpeed * (game.level / 2.5))
 		);
 		this.lethalTimeout = new Timer(
 			() => (this.lethal = true),
-			60000 / ageSpeed
+			60000 / (ageSpeed * (game.level / 2))
 		);
 
 		this.rate = 1;
@@ -27,7 +27,6 @@ class Bubble {
 			let y1 = this.y;
 			let x2 = bubbles[i].x;
 			let y2 = bubbles[i].y;
-			// console.log(bubbles[i]);
 			if (bubbles[i] != this) {
 				let distance =
 					Math.sqrt(Math.pow(x2 - x1, 2) + Math.pow(y2 - y1, 2)) -
@@ -35,8 +34,6 @@ class Bubble {
 					3;
 
 				if (distance < this.r) {
-					// this.r += this.rate;
-
 					this.expanding = false;
 				}
 			}
@@ -46,7 +43,7 @@ class Bubble {
 			let y1 = this.y;
 			let x2 = mines[i].x;
 			let y2 = mines[i].y;
-			// console.log(mines[i]);
+
 			if (mines[i] != this) {
 				let distance =
 					Math.sqrt(Math.pow(x2 - x1, 2) + Math.pow(y2 - y1, 2)) -
@@ -54,8 +51,6 @@ class Bubble {
 					2;
 
 				if (distance < this.r) {
-					// this.r += this.rate;
-
 					this.expanding = false;
 				}
 			}
@@ -71,7 +66,5 @@ class Bubble {
 		if (this.lethal) {
 			game.death();
 		}
-		// this.expanding = true;
-		// this.rate *= -10;
 	}
 }
