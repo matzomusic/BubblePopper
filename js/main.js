@@ -22,6 +22,7 @@ const bonusSound = document.getElementById("bonus");
 const zapp = document.getElementById("zapp");
 const explodeSound = document.getElementById("explode");
 const deathSound = document.getElementById("death");
+const nukeSound = document.getElementById("nuke");
 
 let muted = true;
 
@@ -100,7 +101,7 @@ function checkNeighbors(xPos, yPos, r) {
 	let neighbors = [];
 	let mineNeighbors = [];
 	let x, y;
-	let rX = r * 1.2;
+	let rX = r * 1.01;
 	for (let i = 0; i < 360; i++) {
 		let angle = (i * Math.PI * 2) / 360 + Math.PI / 2;
 		x = Math.cos(angle) * rX + xPos;
@@ -210,6 +211,12 @@ function playDeath() {
 		deathSound.play();
 	}
 }
+function playNuke() {
+	if (!muted) {
+		nukeSound.currentTime = 0;
+		nukeSound.play();
+	}
+}
 
 function mousePop(xPos, yPos) {
 	let x = Math.floor(xPos);
@@ -224,6 +231,10 @@ function mousePop(xPos, yPos) {
 			} else {
 				game.addToScore(bubble.poppedValue + bonusAmount);
 			}
+			if (bubble.nuke) {
+				playNuke();
+				return;
+			}
 			if (bubble.poppedValue > 0) {
 				if (bubble.poppedValue < bonusAmount) {
 					playGoodPop();
@@ -234,7 +245,6 @@ function mousePop(xPos, yPos) {
 				playBadPop();
 			}
 		}
-
 		let anim1 = setTimeout(() => disposeBubble(bubble, x, y), 500);
 	}
 

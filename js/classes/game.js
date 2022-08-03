@@ -278,7 +278,13 @@ class Game {
 				}
 				context.beginPath();
 				context.arc(bubbles[i].x, bubbles[i].y, bubbles[i].r, 0, Math.PI * 2);
-				context.strokeStyle = "white";
+				// console.log(bubbles[i].nuke);
+				if (bubbles[i].nuke) {
+					// console.log("nuke");
+					context.strokeStyle = "purple";
+				} else {
+					context.strokeStyle = "white";
+				}
 
 				context.stroke();
 				if (bubbles[i].poison) {
@@ -302,6 +308,15 @@ class Game {
 				checkValid(pos[0], pos[1], false, bubbles) &&
 				checkValid(pos[0], pos[1], false, mines)
 			) {
+				if (this.level >= 6) {
+					let rand2 = Math.random();
+					if (rand2 < 0.001 * this.level) {
+						// console.log("nuke");
+						let nuke = new Nuke(pos[0], pos[1], 1);
+						bubbles.push(nuke);
+						return;
+					}
+				}
 				let bubble = new Bubble(pos[0], pos[1], 1);
 				bubbles.push(bubble);
 			}
@@ -321,7 +336,7 @@ class Game {
 		if (this.level >= 3) {
 			let rand = Math.random() * 100;
 
-			if (rand < this.level / 4) {
+			if (rand < this.level / 10) {
 				let popper = new Popper();
 				poppers.push(popper);
 			}

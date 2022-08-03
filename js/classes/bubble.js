@@ -6,6 +6,7 @@ class Bubble {
 		this.expanding = true;
 		this.poison = false;
 		this.lethal = false;
+		this.nuke = false;
 		this.poisonTimeout = new Timer(
 			() => (this.poison = true),
 			20000 / (ageSpeed * (game.level / 3))

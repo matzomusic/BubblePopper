@@ -5,7 +5,6 @@ class Popper {
 		this.vector = [0, 0];
 		this.velocity = 5;
 		this.radius = 10;
-		// console.log("hello popper");
 	}
 
 	move() {
