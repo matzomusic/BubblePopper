@@ -60,6 +60,7 @@ class Bubble {
 	bubblePop() {
 		this.popped = true;
 		this.poppedValue = Math.pow(this.r, 2);
+
 		if (this.poison) {
 			this.poppedValue *= -1;
 		}

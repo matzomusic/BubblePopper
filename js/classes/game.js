@@ -236,7 +236,11 @@ class Game {
 					context.beginPath();
 					context.arc(bubbles[i].x, bubbles[i].y, bubbles[i].r, 0, Math.PI * 2);
 					if (bubbles[i].poppedValue > 0) {
-						context.strokeStyle = "lightblue";
+						if (bubbles[i].poppedValue < bonusAmount) {
+							context.strokeStyle = "lightblue";
+						} else {
+							context.strokeStyle = "cyan";
+						}
 					} else {
 						context.strokeStyle = "red";
 					}
@@ -260,6 +264,15 @@ class Game {
 					context.font = `${fontSize}px arial`;
 
 					context.fillText(text, x - fontSize * 1.5, y + fontSize / 2);
+
+					if (bubbles[i].poppedValue > bonusAmount) {
+						context.fillStyle = "cyan";
+						context.fillText(
+							`+${bonusAmount}`,
+							x - fontSize * 1.5,
+							y + fontSize + fontSize / 2
+						);
+					}
 
 					continue;
 				}

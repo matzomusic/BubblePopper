@@ -18,6 +18,7 @@ const audio = document.querySelectorAll("audio");
 const goodPop = document.getElementById("good-pop");
 const badPop = document.getElementById("bad-pop");
 const levelUp = document.getElementById("level-up");
+const bonusSound = document.getElementById("bonus");
 const zapp = document.getElementById("zapp");
 const explodeSound = document.getElementById("explode");
 const deathSound = document.getElementById("death");
@@ -32,12 +33,13 @@ const gravity = 0.0000005;
 
 const frameRate = 30;
 const ageSpeed = 1;
+const bonusAmount = 10000;
 
 const LEVELS = {
 	LEVEL1: 200000 / mult,
 	LEVEL2: 1000000 / mult,
-	LEVEL3: 2000000 / mult,
-	LEVEL4: 5000000 / mult,
+	LEVEL3: 3000000 / mult,
+	LEVEL4: 6000000 / mult,
 	LEVEL5: 10000000 / mult,
 	LEVEL6: 50000000 / mult,
 	LEVEL7: 100000000 / mult,
@@ -184,6 +186,12 @@ function playLevelUp() {
 		levelUp.play();
 	}
 }
+function playBonus() {
+	if (!muted) {
+		bonusSound.currentTime = 0;
+		bonusSound.play();
+	}
+}
 function playZapp() {
 	if (!muted) {
 		zapp.currentTime = 0;
@@ -211,9 +219,17 @@ function mousePop(xPos, yPos) {
 		let bubble = checkValid(x, y, true, bubbles);
 		if (!bubble.popped) {
 			bubble.bubblePop();
-			game.addToScore(bubble.poppedValue);
+			if (bubble.poppedValue < bonusAmount) {
+				game.addToScore(bubble.poppedValue);
+			} else {
+				game.addToScore(bubble.poppedValue + bonusAmount);
+			}
 			if (bubble.poppedValue > 0) {
-				playGoodPop();
+				if (bubble.poppedValue < bonusAmount) {
+					playGoodPop();
+				} else {
+					playBonus();
+				}
 			} else {
 				playBadPop();
 			}
